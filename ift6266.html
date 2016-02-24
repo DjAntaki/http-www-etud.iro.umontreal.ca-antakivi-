@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<html>
+<head>
+    <title>Blog IFT6266</title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+                      <a class="navbar-brand" href="#">antaki.vincent</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="enseignement.html">Enseignement</a></li>
+              <li><a href="cours.html">Cours</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>      
+    
+         <center> <h1> Blog IFT6266 - Algorithmes d'apprentissages de représentations - Hiver 2016 </h1></center>
+            
+            <div class="well sidebar-nav">
+            <h2>À propos</h2>
+            <p> Ce blog a pour but de tenir compte de mes expérimentations faites dans le cadre du cours gradué IFT6266 - Algorithmes d'apprentissage de représentations suivi dans le cadre de mon baccalauréat en informatique et recherche opérationnelle.</p>
+
+</div>
+   
+    <div class="col-fluid">
+        <div class="col-md-3">
+          
+          <div class="well sidebar-nav">
+              <h4>Enseignant : </h4>
+              <a href="http://www.iro.umontreal.ca/~bengioy/">Yoshua Bengio</a>           
+              <h4>Blog du cours : </h4>
+              <a href="https://ift6266h16.wordpress.com/">IFT6266</a>           
+              <h4>Mon dépôt pour le cours : </h4>
+              <a href="https://github.com/DjAntaki/IFT6266H16">github_ift6266</a>           
+          </div>
+          
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header"><h4>Index</h4></li>
+              <li><a href="#semaine1">Semaine 1</a></li>
+              <li><a href="#semaine2">Semaine 2</a></li>
+              <li><a href="#semaine3">Semaine 3</a></li>
+              <li><a href="#semaine4">Semaine 4</a></li>
+              <li><a href="#semaine5">Semaine 5</a></li>
+              <li><a href="#semaine6">Semaine 6</a></li>
+              </ul>
+          </div><!--/.well -->
+          
+          
+        </div><!--/span-->
+     
+        <div class="col-md-9" >
+            <h3>Compte-rendus hebdomadaires</h3>
+            <a name="semaine5"></a>
+            <h4>Semaine 6 -- [12 février, 18 février]</h4>
+            <p> 
+     
+            Liens pertinents :
+            <li><a href="http://torch.ch/blog/2016/02/04/resnets.html"> Des expérimentations extensives avec des ResNets en torch </a> </li>
+            <li> </li>
+            </p>
+
+
+            <a name="semaine5"></a>
+            <h4>Semaine 5 -- [5 février, 11 février]</h4>
+            Pour l'instant voici le plan pour les deux projets :
+            <p>
+            Pour Dogs and Cats, je vais essayer de m'inspirer de l'article  <a=href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a> pour classifier ces images. Ce réseau très profond et qui utilise très peu de pooling a gagné la première place de la compétition de classification ILSVRC 2015  
+            
+            Les réseaux résiduels sont composés d'une séquence de blocs résiduels. Chaque bloc est composé de deux couches de convolution suivi de l'ajout de l'identité de l'entrée à l'aide d'une "skip connection" (voir figure ci-dessous). 
+            </p>
+            <img src="resnet_block.png">
+            <p>
+            Les réseaux résultants de séquence de ces blocs sont très profonds; le réseau utilisé qui s'est classé dans la compétition d'ImageNet possédait une profondeur de 152 couches! 
+
+
+
+            Ce modèle possède beaucoup d'intérêt car :
+            1. Il applique très peut de pooling. Récemment, certains membres de la communauté du machine learning ont remis en cause le bien-fondé du pooling, principalement face à la perte d'information (notamment Geoffrey Hinton (X:HH): <> ).
+
+            2. Il est très profond, pouvant mener à des re
+
+            3. La nature résiduelle des blocs provient 
+            
+            entraine une forme de persistance et son nombre de filtre croissant
+
+
+
+            La première étape sera de coder un objet implémentant l'interface *blocks.bricks.Feedfoward* et correspondant à un *residual layer*, c'est-à-dire à deux. 
+
+            La deuxième étape sera d'arranger une procédure qui génère une séquence de ces bricks selon des paramètres de profondeurs, de tailles, etc. Les séquences de bricks générées auront une certaine augmentation de filtre ainsi qu'une diminution progressive de taille.  
+            </p>
+
+            <p>Éventuellement, je devrais considérer augmenter la quantité de données en appliquant diverses transformations (rotation, translation, ajout de bruit) sur l'ensemble de données initial. Augmenter les données de cette façon permet devrait permettre de mieux généraliser.
+            </p>
+
+            <p>
+            Pour ce qui est du projet de synthèse vocale, je ne suis pas encore décidé sur la forme que prendra mon modèle. Deux articles très intéressants qui s'attaquent à ce problème sont en liens plus bas.
+            </p>
+            
+            
+            Liens intéressants :
+            <li><a href="https://www.youtube.com/watch?v=1PGLj-uKT1w">MSRA - Deep residual learning</a>, une conférence en lien avec l'article du même nom précédemment mentionné.</li>
+            <li> Alex Graves on <a href="http://arxiv.org/abs/1308.0850">Generating Sequences With Recurrent Neural Networks</a>. </li>
+
+            <li> <a href="http://arxiv.org/abs/1506.02216">A recurrent Latent Variable Model for Sequential Data</a>, by Chung, Kastner, Dinh, Goel, Courville and Bengio. 2015</li>
+            
+            
+            <a name="semaine4"></a>
+            <h4>Semaine 4 -- [29 janvier, 4 février ]</h4>
+            J'ai réussi à faire fonctionner les calculs sur la carte graphique avec mon desktop. Je me suis aussi débarasser du *BilinearResize* que j'ai précédemment codé car ce dernier était plutôt lent. J'utilise maintenant la fonction *resize* de la librairie Scikit-image. J'ai aussi réussi à faire fonctionner un réseau à convolution LeNet-like sur mon portable, par contre j'ai un ImportError incompréhensible interne à theano (qui semblent référée à BLAS) lorsque j'essaye de faire rouler le même script sur mon desktop.
+            
+            J'ai aussi trouver la librairie *python-speech-feature* qui calcul les *coefficiants ceptraux ajustés à la fréquence de Mel* (MFCC). J'ai fait une classe *fuel.transformers* qui appelle la librairie avec tous les examples envoyés dans le stream. J'ai creusé un peu plus sur les LSTM, les GRU et les nombreuses autres variantes (<a href="http://arxiv.org/abs/1410.5401">Neural Turing Machine</a>!? )
+            
+            La morale de cette semaine :
+            <li>Vérifier que le taux d'erreur n'est pas utilisé comme coût avant de partir l'entrainement d'un réseau de neuronnes. La distance euclidienne (L2) est plus adaptée. (testé accidentellement sur MLP avec 3 couches cachées avec le dataset dogs_vs_cats)</li>
+            <li>Suivre les tutorials à la lettre peut faire économiser du temps. Voici le <a href="http://deeplearning.net/software/theano/tutorial/using_gpu.html">tutorial </a> pour faire des calculs sur la carte graphique avec theano.</li>
+            <li>L'adage "on n'est jamais mieux servi que par soi-même" est faux lorsqu'il est question de transformations usuelles d'image. Des librairies efficaces existent, des gens ont fait du beau code pour que tu n'ailles pas à le faire. Voici un lien vers la librairie <a href="http://scikit-image.org/"> skimage </a> et <a href="https://github.com/jameslyons/python_speech_features"> python-speech-features</a>.</li>
+
+            <a name="semaine3"></a>
+            <h4>Semaine 3 -- [ 22 janvier, 28 janvier ]</h4>
+               
+            <p>           
+            Les sujets de projets sont sortis. Le premier sujet est la classification d'image de chien et de chats en utilisant exclusivement le dataset de la compétition Kaggle <a href="https://www.kaggle.com/c/dogs-vs-cats">Dogs and Cats</a>. Le deuxième sujet implique de la synthèse vocale.</p>
+            
+          <p>En m'inspirant de la structure des transformeurs dans Blocks, j'ai fait un transformeur visant à redimensionner une image par interpolation bilinéaire dans le but de pouvoir traiter une image de taille fixe. Ça semble marcher mais c'est plutôt lent. Je ne suis pas encore en mesure de faire des calculs sur carte graphique.
+            </p>
+            
+            <p> Liens pertinents de la semaine :
+            <li> Liens vers des exemples sur les RNNs avec Blocks et Fuels mentionnés dans une <a href="https://groups.google.com/forum/#!topic/blocks-users/NYkLN4hQ33g">discussion</a> en 2015. </li>
+            <li><a href="https://en.wikipedia.org/wiki/Bilinear_interpolation">Interpolation bilinéaire</a></li>
+            </p> 
+            
+
+
+
+            <a name="semaine2"></a>
+            <h4>Semaine 2 -- [ 15 janvier, 21 janvier ]</h4>
+            <p> J'ai abandonné Pylearn2 et je me suis mis à jouer avec Blocks et Fuel. J'ai fait des MLP à 3 couches cachées (et softmax sur l'output) et écrit une petite procédure pour tester sur MNIST différentes configurations de fonctions d'activation. La procédure teste toutes les 3-permutations de {reLU, sigmoid} pour la même configuration de batch, learning rate et dimensions.
+            
+            Mes objectifs pour la prochaine semaine et demie est de réussir à importer des données avec Fuel et ainsi que commencer à me familiariser avec des architectures plus complexe (CNN et/o u RNN).   
+            
+            Si j'ai le temps, il faudrait aussi que je trouve une manière de faire du live ploting (e.g. les courbes d'apprentissages). <a href="http://bokeh.pydata.org">Blokeh</a> semble être designé pour ça.
+            </p>
+            
+            <p> J'ai aussi lu l'article <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.158.4126">A Survey On Transfer Learning</a> et suis présentemment en train de lire <a href="http://arxiv.org/pdf/1302.4389.pdf">Maxout Networks</a>.            
+            </p>
+            
+
+            Liens pertinents :
+         
+            <li> <a href="http://fuel.readthedocs.org/en/latest/">Fuel</a>, la documentation</li>
+            <li> <a href="http://blocks.readthedocs.org/en/latest/">Blocks</a>, la documentation</li> 
+            <li> <a href="https://github.com/mila-udem/blocks-examples/">blocks-examples</a> contient des exemples d'architecture de réseaux de neuronnes avec blocks.</li>
+
+            <a name="semaine1"></a>
+            <h4>Semaine 1 -- [ 8 janvier, 14 janvier ]</h4>
+            <p> La page du blog est maintenant faite! 
+            
+            J'ai commencé à me familiariser avec Pylearn2 en suivant les tutorials suivants :
+            
+            <li><a href="http://vdumoulin.github.io/articles/extending-pylearn2/"> Your models in Pylearn2</a> </li>
+            <li><a href="http://daemonmaker.blogspot.ca/2014/10/a-first-experiment-with-pylearn2.html"> A First Experiment with Pyearn2 </a></li>
+            </p>
+            
+<p>Je suis en train de jouer un peu avec la librairie. Ça calcul vraiment rapidement, surtout si je compare avec le code en python/numpy fait dans le dernier devoir du cours IFT3395. Je fais mes tests sur MNIST en me basant initialement sur le code dans les tutorials.</p>
+
+
+    <p>J'ai par la suite découvert d'autres librairies basé sur Theano pour faire des réseaux de neuronnes en python(<a href="https://github.com/Lasagne/Lasagne">Lasagne</a> et le duo <a href="https://github.com/mila-udem/blocks">Blocks</a> et <a href="https://github.com/mila-udem/fuel">Fuel</a>. Je ne les ai pas encore testés mais à en juger par le dépôt github, ils sont maintenus plus à jour que PyLearn2. Aussi, je pense qu'il n'y a pas de fichier YAML à configurer pour faire des test (ce qui me semble un gain vs. PyLearn2). Je pense éventuellement tester Blocks et Fuel.<p>
+        </div>
+     </div>
+
+</body>
