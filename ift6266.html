@@ -68,13 +68,27 @@
      
         <div class="col-md-9" >
             <h3>Compte-rendus hebdomadaires</h3>
-            <a name="semaine5"></a>
+            
+            <a name=semaine7></a>
+            <h4>Semaine 7 -- [18 février, 25 février]</h4>
+
+            <p> Bon, j'ai quelques problèmes persistants avec mon implémentation du ResNet avec Blocks. Je commence à faire du surplace et c'est fâcheux. J'ai aussi une grosse pile de correction qui m'attend. Je vais essayer de compenser le peu d'avancement de cette semaine avec la semaine prochaine.              
+            </p>
+            
+            <a>Je commence à avoir une idée un peu plus claire d'un rnn qui pourrait être intéressant à implémenter pour le projet de synthèse vocale (si j'ai le temps de m'y rendre!). Une approche innovante consisterait à construire un "gating system" qui prends en entrée l'entrée et qui applique une fonction qui détermine les coefficients du masque dropout à appliquer (il faut donner le crédit à mon ami Emmanuel qui m'a introduit cette idée). 
+            </p>            
+            
+            <p>
+            Blocks me semble un outils puissant mais si je me lance dans un LSTM, j'envisage d'y aller avec le framework Lasagne. Après un peu d'exploration, celui-ci me semble un peu plus directe etsemble contenir plus d'example sur le net.
+            </p>
+            
+            <a name="semaine6"></a>
             <h4>Semaine 6 -- [12 février, 18 février]</h4>
             <p> 
+            Le resnet est entamé avec Blocks. Ça compile pas encore mais ça arrive. 
+            </p>
      
-            Liens pertinents :
-            <li><a href="http://torch.ch/blog/2016/02/04/resnets.html"> Des expérimentations extensives avec des ResNets en torch </a> </li>
-            <li> </li>
+            <p> Au menu des lectures intéressantes de la semaine, on retrouve le <a href="https://florianbordes.wordpress.com/2016/02/09/how-to-use-the-cluster-of-calcul-quebec/">tutorial</a> de Florian sur comment utiliser le cluster de Calcul Québec. Ainsi qu'un <a href="http://torch.ch/blog/2016/02/04/resnets.html">article</a> qui fait états d'expérimentations extensives avec des ResNets en Torch.
             </p>
 
 
@@ -82,26 +96,15 @@
             <h4>Semaine 5 -- [5 février, 11 février]</h4>
             Pour l'instant voici le plan pour les deux projets :
             <p>
-            Pour Dogs and Cats, je vais essayer de m'inspirer de l'article  <a=href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a> pour classifier ces images. Ce réseau très profond et qui utilise très peu de pooling a gagné la première place de la compétition de classification ILSVRC 2015  
+            Pour Dogs and Cats, je vais essayer de m'inspirer de l'article  <a=href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a> pour classifier ces images. Ce réseau très profond et qui utilise très peu de pooling a gagné la première place de la compétition de classification ILSVRC 2015.  
+            </p>
             
+            <p>
             Les réseaux résiduels sont composés d'une séquence de blocs résiduels. Chaque bloc est composé de deux couches de convolution suivi de l'ajout de l'identité de l'entrée à l'aide d'une "skip connection" (voir figure ci-dessous). 
             </p>
-            <img src="resnet_block.png">
+            <img src="res/ift6266/resnet_block.png">
             <p>
             Les réseaux résultants de séquence de ces blocs sont très profonds; le réseau utilisé qui s'est classé dans la compétition d'ImageNet possédait une profondeur de 152 couches! 
-
-
-
-            Ce modèle possède beaucoup d'intérêt car :
-            1. Il applique très peut de pooling. Récemment, certains membres de la communauté du machine learning ont remis en cause le bien-fondé du pooling, principalement face à la perte d'information (notamment Geoffrey Hinton (X:HH): <> ).
-
-            2. Il est très profond, pouvant mener à des re
-
-            3. La nature résiduelle des blocs provient 
-            
-            entraine une forme de persistance et son nombre de filtre croissant
-
-
 
             La première étape sera de coder un objet implémentant l'interface *blocks.bricks.Feedfoward* et correspondant à un *residual layer*, c'est-à-dire à deux. 
 
