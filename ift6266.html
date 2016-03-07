@@ -68,6 +68,13 @@
      
         <div class="col-md-9" >
             <h3>Compte-rendus hebdomadaires</h3>
+            <h4>Semaine 8 -- [26 février, 3 mars]</h4>
+            Après mainte essai infructueux, j'ai mis sur pause mon implémentation de residual net avec Blocks. Entre temps, j'ai trouvé une implémentation du <a href="">residual network avec Lasagne</a>. Je suis en train d'essayer d'importer le ComputationGraph du modèle pour pouvoir l'utiliser avec le MainLoop de Blocks et les data streams de Fuel. J'ai aussi fait du gros refractorage de code.
+            <p>
+            
+            <p>
+            J'ai par ailleurs entamé quelques examples de RNN/LSTM/GRU avec Blocks.
+            </p>
             
             <a name=semaine7></a>
             <h4>Semaine 7 -- [18 février, 25 février]</h4>
@@ -75,11 +82,11 @@
             <p> Bon, j'ai quelques problèmes persistants avec mon implémentation du ResNet avec Blocks. Je commence à faire du surplace et c'est fâcheux. J'ai aussi une grosse pile de correction qui m'attend. Je vais essayer de compenser le peu d'avancement de cette semaine avec la semaine prochaine.              
             </p>
             
-            <a>Je commence à avoir une idée un peu plus claire d'un rnn qui pourrait être intéressant à implémenter pour le projet de synthèse vocale (si j'ai le temps de m'y rendre!). Une approche innovante consisterait à construire un "gating system" qui prends en entrée l'entrée et qui applique une fonction qui détermine les coefficients du masque dropout à appliquer (il faut donner le crédit à mon ami Emmanuel qui m'a introduit cette idée). 
+            <p>Je commence à avoir une idée un peu plus claire d'un rnn qui pourrait être intéressant à implémenter pour le projet de synthèse vocale (si j'ai le temps de m'y rendre!). Une approche innovante consisterait à construire un "gating system" qui prends en entrée l'entrée et qui applique une fonction qui détermine les coefficients du masque dropout à appliquer (il faut donner le crédit à mon ami Emmanuel qui m'a introduit cette idée). 
             </p>            
             
             <p>
-            Blocks me semble un outils puissant mais si je me lance dans un LSTM, j'envisage d'y aller avec le framework Lasagne. Après un peu d'exploration, celui-ci me semble un peu plus directe etsemble contenir plus d'example sur le net.
+            Blocks me semble un outils puissant mais, je commence à envisager d'utiliser le framework Lasagne (pour le réseau récurrent peut-être). Après un peu d'exploration, celui-ci me semble un peu plus directe etsemble contenir plus d'exemple sur le net.
             </p>
             
             <a name="semaine6"></a>
@@ -96,7 +103,7 @@
             <h4>Semaine 5 -- [5 février, 11 février]</h4>
             Pour l'instant voici le plan pour les deux projets :
             <p>
-            Pour Dogs and Cats, je vais essayer de m'inspirer de l'article  <a=href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a> pour classifier ces images. Ce réseau très profond et qui utilise très peu de pooling a gagné la première place de la compétition de classification ILSVRC 2015.  
+            Pour Dogs and Cats, je vais essayer de m'inspirer de l'article  <a href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a> pour classifier ces images. Ce réseau très profond et qui utilise très peu de pooling a gagné la première place de la compétition de classification ILSVRC 2015.  
             </p>
             
             <p>
