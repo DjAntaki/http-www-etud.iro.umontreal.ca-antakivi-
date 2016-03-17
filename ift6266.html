@@ -60,6 +60,9 @@
               <li><a href="#semaine4">Semaine 4</a></li>
               <li><a href="#semaine5">Semaine 5</a></li>
               <li><a href="#semaine6">Semaine 6</a></li>
+              <li><a href="#semaine7">Semaine 7</a></li>
+              <li><a href="#semaine8">Semaine 8</a></li>
+              <li><a href="#semaine9">Semaine 9</a></li>
               </ul>
           </div><!--/.well -->
           
@@ -68,12 +71,37 @@
      
         <div class="col-md-9" >
             <h3>Compte-rendus hebdomadaires</h3>
+            <h4>Semaine 10 -- [11 mars, 17 mars]</h4>
+            <p> Les premiers réseaux résiduels ont été lancés au cours de la semaine. J'ai rajouté une couche de maxpooling car la mémoire est un facteur limitant pour la taille du réseau et.
+                <li> L'entrée croppé puis redimensionné de taille 150x150</li>
+                <li> 1 couches de convolution avec 32 filtres </li>
+                <li> 1 couche de maxpooling (filtre 3x3, stride=2)</li>
+                <li> 23 couches de profondeurs (3 bottlenecks)</li>
+                <li> batch size : </li>
+                <li> nb_epoch : 100 </li>
+                <li> Fonction de coût : enthropie croisée </li>
+                <li> Step : Fix pour le premier net, adam pour le deuxième<li>
+                <li> Nombre de paramètre à apprendre : ~1.4 millions</li>
+            </p>
+            
+            <p> (d'autres détails suivront...)
+            </p>
+                        
+            
+            <a name=semaine8></a>
+            <h4>Semaine 9 -- [4 mars, 10 mars]</h4>
+            <p>Bon, je suis maintenant prêt à lancer mes calculs. Après avoir essayé pour une durée considérable de temps, j'ai abandonné l'idée de faire du live-plotting avec Bokeh à travers le serveur de calcul. Je devrais être en mesure de faire des graphiques à partir des résultats une fois ceux-ci sauvegardés. 
+            </p>
+            
+            <p> Aussi, j'ai un bogue au niveau de l'initialisation de mon LSTM.</p>
+            
+            <a name=semaine8></a>                
             <h4>Semaine 8 -- [26 février, 3 mars]</h4>
-            Après maintes essais infructueux, j'ai mis sur pause mon implémentation de residual net avec Blocks. Entre temps, j'ai trouvé une implémentation du <a href="https://github.com/alrojo/lasagne_residual_network"> residual network avec Lasagne</a>. Je suis en train d'essayer d'importer le ComputationGraph du modèle pour pouvoir l'utiliser avec le MainLoop de Blocks et les data streams de Fuel. J'ai aussi fait du gros refractorage de code.
-            <p>
+            <p>Après maintes essais infructueux, j'ai mis sur pause mon implémentation de residual net avec Blocks. Entre temps, j'ai trouvé une implémentation du <a href="https://github.com/alrojo/lasagne_residual_network"> residual network avec Lasagne</a>. Je suis en train d'essayer d'importer le ComputationGraph du modèle pour pouvoir l'utiliser avec le MainLoop de Blocks et les data streams de Fuel. J'ai aussi fait du gros refractorage de code.
+            </p>
             
             <p>
-            J'ai par ailleurs entamé quelques examples de RNN/LSTM/GRU avec Blocks.
+            J'ai par ailleurs entamé quelques exemples de RNN/LSTM/GRU avec Blocks.
             </p>
             
             <a name=semaine7></a>
