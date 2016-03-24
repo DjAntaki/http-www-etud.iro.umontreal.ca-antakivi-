@@ -63,6 +63,9 @@
               <li><a href="#semaine7">Semaine 7</a></li>
               <li><a href="#semaine8">Semaine 8</a></li>
               <li><a href="#semaine9">Semaine 9</a></li>
+              <li><a href="#semaine10">Semaine 10</a></li>
+              <li><a href="#semaine11">Semaine 11</a></li>
+              
               </ul>
           </div><!--/.well -->
           
@@ -71,24 +74,35 @@
      
         <div class="col-md-9" >
             <h3>Compte-rendus hebdomadaires</h3>
+
+            <a name=semaine11></a>
+            <h4>Semaine 11 -- [18 mars, 23 mars]</h4>
+            <p> Après plus de 100 heures de calcul sur les réseaux, je me suis rendu compte que ceux-ci allait atteindre le temps limite (walltime : 120h) avant de compléter leurs calculs. J'ai tenté d'envoyé un SIGTERM sans envoyer le signal SIGKILL pour signifier à blocks de sauvegarder le MainLoop après la prochaine époque. La commande "msjobctl -c id" envoie les deux signals avec un petit délai, ce qui ne correspond pas au comportement voulu. J'ai contacté le support technique du serveur qui m'a indiqué que la commande que je cherchais était "qsig id". Toutefois, les réseaux n'ont pas appliqués le checkpoint une fois cette commande reçu et on presque instantanément arrêté. :C </p>
+
+            <p>Je vais relancer les calculs avec les extensions blocks "TrackTheBest" et "FinishIfNoImprovementAfter" (early-stopping), de même qu'avec un checkpoint à chaque 5 époques. Aussi, je vais réduire la taille du modèle à 17 couches résiduelles. Une fois que j'aurai les résultats pour le modèle à 17 couches, j'envisagerai de retourner à 23 couches.</p>
+
+
+
+            <a name=semaine10></a>
             <h4>Semaine 10 -- [11 mars, 17 mars]</h4>
-            <p> Les premiers réseaux résiduels ont été lancés au cours de la semaine. J'ai rajouté une couche de maxpooling car la mémoire est un facteur limitant pour la taille du réseau et.
+            <p> Les premiers réseaux résiduels ont été lancés au cours de la semaine. J'ai rajouté une couche de maxpooling car la mémoire est un facteur limitant pour la taille du réseau et j'aimerais mise sur la profondeur plus que la largeur du réseaux.
+            
                 <li> L'entrée croppé puis redimensionné de taille 150x150</li>
                 <li> 1 couches de convolution avec 32 filtres </li>
                 <li> 1 couche de maxpooling (filtre 3x3, stride=2)</li>
                 <li> 23 couches de profondeurs (3 bottlenecks)</li>
-                <li> batch size : </li>
-                <li> nb_epoch : 100 </li>
+                <li> batch size : 32</li>
+                <li> nb_epoch : 150 </li>
                 <li> Fonction de coût : enthropie croisée </li>
-                <li> Step : Fix pour le premier net, adam pour le deuxième<li>
+                <li> Step : Fixe pour le premier net, adam pour le deuxième, momentum pour le troisième et RMSProp pour la quatrième.<li>
                 <li> Nombre de paramètre à apprendre : ~1.4 millions</li>
             </p>
-            
-            <p> (d'autres détails suivront...)
+            Les résultats seront affichés sur ce blog.
+            <p> 
             </p>
                         
             
-            <a name=semaine8></a>
+            <a name=semaine9></a>
             <h4>Semaine 9 -- [4 mars, 10 mars]</h4>
             <p>Bon, je suis maintenant prêt à lancer mes calculs. Après avoir essayé pour une durée considérable de temps, j'ai abandonné l'idée de faire du live-plotting avec Bokeh à travers le serveur de calcul. Je devrais être en mesure de faire des graphiques à partir des résultats une fois ceux-ci sauvegardés. 
             </p>
