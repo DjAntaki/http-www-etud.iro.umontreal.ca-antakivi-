@@ -107,7 +107,7 @@
             
             <p>Les tests basés sur le modèle "CNN_5layers" se sont avérés inconclusif. Le modèle semble incapable de converger vers quelque chose de potable. On dirait que les modèles sont coincés dans un minimum local. Les modèles avec régularisation ont même tendance à rester coincé  éventuellement dans leur entrainement (et généralement tôt). Cette situation se traduit généralement par une incapacité à apprendre. Par exemple, voici graphes des taux d'erreurs et des pénalités du modèle "CNN_5layers" avec adam, maxpool et régularisation tel que sur le modèle précédent.</p>
 
-            <img src="res/ift6266/5layers_adam_maxpool_reg1.png"> </img>            
+            <img src="res/ift6266/5layers_adam_maxpool_reg.png"> </img>            
             <img src="res/ift6266/5layers_adam_maxpool_reg2.png"> </img>
             
             <p>On remarque que le réseau ne semble rien apprendre . Cette situation me porte à croire qu'un pré-entrainement pourrait être un facteur clé dans l'entrainement de modèles larges. Alternativement, il pourrait être intéressant de choisir aléatoirement de multiples configurations de départ pour tenter de trouver un état initial favorable à une convergence potable.</p>
@@ -119,14 +119,14 @@
             <p> 
             Finalement, on dirait le réseau résiduel n'apprends pas. Après une autre série de test infructueux, je me suis mis à tester des modèles plus petits et à réutiliser le bokeh serveur dans le but de suivre la progression de l'entrainement et de détecter plus rapide lorsque le réseau n'apprends pas. </p> 
             
-            <p>Après mainte relecture, j'ai découvert une erreur dans le <a href="https://github.com/alrojo/lasagne_residual_network/">code original</a> du residual net de Asojov. Suite à ça, je suis retourné sur le github original pour finalement m'apercevoir que l'erreur fut corrigée une semaine plus tôt et même qu'une implémentation plus récente, tirée de l'article <a href="http://arxiv.org/abs/1603.05027">Identity Mapping in Deep Residual Networks</a>, fut rajoutée. Cet article, des mêmes auteurs que les gagnants du concours ILSVRC 2015, introduit et expérimente avec des variantes de block résiduel. J'ai redémarré des calculs sur un très petit réseau résiduel sans aucune régularisation et sans aucune fonction de pas particulière. </p>
+            <p>Après maintes relectures, j'ai découvert une erreur dans le <a href="https://github.com/alrojo/lasagne_residual_network/">code original</a> du residual net de Asojov. Suite à ça, je suis retourné sur le github original pour finalement m'apercevoir que l'erreur fut corrigée une semaine plus tôt et même qu'une implémentation plus récente, tirée de l'article <a href="http://arxiv.org/abs/1603.05027">Identity Mapping in Deep Residual Networks</a>, fut rajoutée. Cet article, des mêmes auteurs que les gagnants du concours ILSVRC 2015, introduit et expérimente avec des variantes de block résiduel. J'ai redémarré des calculs sur un très petit réseau résiduel sans aucune régularisation et sans aucune fonction de pas particulière. </p>
             
             <p>Le résultat fut peu convaincant. Le modèle résiduel ne semblent pas très stable dans sa convergence et j'ai de la difficulté à comprendre les résultats. Le modèle consiste en 3 blocks résiduels qui ont respectivement 32, 64 et 128 filtres. L'entrée est de taille (64,64). L'erreur utilisée est l'erreur quadratique moyenne.</p>
 
             <img src="res/ift6266/ModelA_default_None.png"> </img>           
             <img src="res/ift6266/ModelA_default_None2.png"> </img>
             
-            <p>Il est étonnant de voir à quel point les graphes du taux d'erreur et de la fonction de coût semblent avoir une forme similaire. Il est aussi surprenant de voir que l'erreur d'entrainement cesse de s'améliorer très tôt. Pour tenter de contourner le problème, j'ai rajouté de la régularisation l2 de façon uniforme sur tous les poids et biais avec un coefficient de 25e-6. La régularisation L1 est uniforme sur les biais avec un coefficient de 25e-6 et appliquée avec un poids croissant sur tous les layers (le premier layer -> aucune régularisation, ..., celui du milieu -> 125e-7, ..., le dernier -> 25e-6).</p>
+            <p>Il est étonnant de voir à quel point les graphes du taux d'erreur et de la fonction de coût semblent avoir une forme similaire. Il est aussi surprenant de voir que l'erreur d'entrainement cesse de s'améliorer très tôt. Pour tenter de contourner le problème, j'ai rajouté de la régularisation l2 de façon uniforme sur tous les poids et biais avec un coefficient de 25e-6. La régularisation L1 est uniforme sur les biais avec un coefficient de 25e-6 et appliquée avec un poid croissant sur tous les layers (le premier layer -> aucune régularisation, ..., celui du milieu -> 125e-7, ..., le dernier -> 25e-6).</p>
 
             
             <img src="res/ift6266/ModelA_conf1_None.png"> </img>           
@@ -145,7 +145,7 @@
             <p>Les CNNs utilisés sont des alternances de couches de convolution avec filtre de taille 5x5 (suivi d'une activation non-linéaire) et de couches de pooling de taille 2x2. Par la suite, un MLP est placé à la fin du réseau. Trois modèles ont été définis en respect à cette architecture :
             </p>
 
-            </li> 'CNN_5layers' : 5 paire convolution/pooling placée séquentiellement. Les images sont de taille (192,192) à l'entrée. Le nombre de filtre pour les convolutions est [32,48,64,128,256]. Deux couches de MLP sont à la fin du réseau; la première possède 1000 unités cachées et la deuxième 200. L'entrainement se fait par batchs de 16 exemples. </li>
+            <li> 'CNN_5layers' : 5 paire convolution/pooling placée séquentiellement. Les images sont de taille (192,192) à l'entrée. Le nombre de filtre pour les convolutions est [32,48,64,128,256]. Deux couches de MLP sont à la fin du réseau; la première possède 1000 unités cachées et la deuxième 200. L'entrainement se fait par batchs de 16 exemples. </li>
             
             <li> 'CNN_4layers' : 4 paires convolution/pooling placée séquentiellement. Les images sont de taille (160,160) à l'entrée. Le nombre de filtre pour les convolutions est [32,64,128,128]. Deux couches de MLP sont à la fin du réseau; la première possède 1000 unités cachées et la deuxième 200. L'entrainement se fait par batchs de 32 exemples. </li>
             
@@ -159,16 +159,13 @@
 
             <a names=semaine12></a>
             <h4> Semaine 12 et 13 -- [24 mars, 6 avril] </h4>
-            <p> Les réseaux précédemments lancés ne se sont pas rendus très loin. Le Early Stopping avec 10 époques les a tous arrêter entre 12 et 20 époques et ceux-ci ne semblent rien avoir apris de significatif. </p>
+            <p> Les réseaux précédemments lancés ne se sont pas rendus très loin. Le early stopping avec 10 époques les a tous arrêté entre 12 et 20 époques et ceux-ci ne semblent rien avoir apris de significatif. </p>
             
-            <p> Alors, j'ai relancer 6 réseaux résiduels qui tournent depuis maintenant presque une semaine. Ils ont entre 60h et 90h de calculs effectifs. Les 4 premiers réseaux ont une fonction de pas différentes (momentum, rmsprop, adam et step-clipping).
-      
-            </p> Les deux autres sont des réseaux avec momentum et rmsprop auquel j'ai rajouté de la régularisation l1 et l2. La régularisation l1 est mis sur toutes les couches avec un poid de 0.001 et la l2 est appliquée sur le dernier tiers des couches avec poid de 1*e-4. Tous les autres paramètres sont les mêmes à l'exception du taux d'apprentissage qui est maintenant de 0.05. </p>
+            <p> Alors, j'ai relancer 6 réseaux résiduels qui tournent depuis maintenant presque une semaine. Ils ont entre 60h et 90h de calculs effectifs. Les 4 premiers réseaux ont une fonction de pas différentes (momentum, rmsprop, adam et step-clipping). Les deux autres sont des réseaux avec momentum et rmsprop auquel j'ai rajouté de la régularisation l1 et l2. La régularisation l1 est mis sur toutes les couches avec un poid de 0.001 et la l2 est appliquée sur le dernier tiers des couches avec poid de 1*e-4. Tous les autres paramètres sont les mêmes à l'exception du taux d'apprentissage qui est maintenant de 0.05. </p>
             
-            <p>
-            J'ai aussi continuer le projet de synthèse vocale. Les streams sont prêts. Tel qu'expliqué précédemment, un prétraitement est appliqué sur l'entrée dans le but de mettre en exergue certaines caractéristiques du signal. Voici à quoi ressemble la manipulation des streams avec Fuel.
+            <p>J'ai aussi continuer le projet de synthèse vocale. Les streams sont prêts. Tel qu'expliqué précédemment, un prétraitement est appliqué sur l'entrée dans le but de mettre en exergue certaines caractéristiques du signal. Voici à quoi ressemble la manipulation des streams avec Fuel.
             
-            <code>
+<div style="margin-left: 1em;">
 from fuel.transformers import Flatten
 from fuel.transformers.sequences import Window
 from fuel.transformers import Mapping, Batch, FilterSources, Merge, ForceFloatX
@@ -188,8 +185,7 @@ stream = Merge((feats_stream,targets_stream), sources = ('features','targets'))
 it_scheme = ConstantScheme(batch_size,num_examples)
 batched_stream = Batch(stream, it_scheme, strictness=1) 
 return batched_stream
-            </code>
-                        
+</div>                        
             </p> 
 
             <a name=semaine11></a>
@@ -226,7 +222,7 @@ return batched_stream
             
             <p> Ci-dessous se trouve une bref introduction sur comment importer et utiliser un modèle Lasagne avec Blocks. Celui-ci est écrit en anglais pour pouvoir potentiellement rejoindre plus de gens.</p>
             
-            <h3>Notes on how to use Lasagne neural network with Blocks!</h3>
+            <h4>Notes on how to use Lasagne neural network with Blocks!</h4>
 
         The duo Blocks and Fuel make a great pair for training a neural net. Blocks features many useful extensions and is a powerful framework. On the downside, examples are sparse online and you often have to dig in the source code of the framework to be able to debug. The Lasagne framework, although it gave me the impression of being a bit less flexible than Blocks, benefits from its straightfoward neural net building paradigm.
 
@@ -236,9 +232,9 @@ Few modifications are needed to your Blocks script to be able to use is with a L
 You can't use the Computation Graph like you usually would with a Blocks-builded net.
 Once you retrieve the theano variable representing the output with the command *lasagne.layers.get_output(output_layer, input_var)*, you can use either blocks or lasagne to define the loss function. If you were to build a Computation Graph with that loss function, all the network parameters (weights, biases, etc.) would end in the shared_variables attribute of the CG instance instead of *cg.parameters*. The *cg.parameters* variable will be an empty list and Blocks will crash at the beggining of the main loop.</p>
 
-<p>You can bypass this problem by using the following : 
+<p>You can bypass this problem by using the following : </p>
 
-<code>
+<div style="margin-left: 1em;">
 prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer))
 test_prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer,deterministic=True)) #For batch norm
 
@@ -250,9 +246,9 @@ algorithm = GradientDescent(
     step_rule=step_rule)
 
 [...]
-</code>
+</div>
 
-It is to note that this doesn't work using a step_rule other than Scale from Blocks. I believe further modification in the instanciation of GradientDescent instance is needed to make it work. 
+<p>It is to note that this doesn't work using a step_rule other than Scale from Blocks. I believe further modification in the instanciation of GradientDescent instance is needed to make it work. 
 </p>
             
             <a name=semaine8></a>                
@@ -279,9 +275,9 @@ It is to note that this doesn't work using a step_rule other than Scale from Blo
             
             <p> Présenté de cette façon, on dirait un peu de la magie. Puisqu'une image vaut mille mots, voici une image où le graphique en haut représente le son original et le graphique en bas les MFCC extraits.</p>
             
-            <img src="res/ift6266">MFCC.jpg</img>
+            <img src="res/ift6266/mfcc.jpg"></img>
             
-            <p> Une autre approche innovante consisterait à construire un "gating system" qui prends l'entrée et qui applique une fonction pour déterminer les coefficients du masque dropout à appliquer. Il serait donc possible d'avoir un réseau . Je tiens à donné le crédit de cette idée à Emmanuel qui me l'a introduit. Cette option m'apparaît toutefois plus complexe; je doute fortement que je me rende
+            <p> Une autre approche innovante consisterait à construire un "gating system" qui prends l'entrée et qui applique une fonction pour déterminer les coefficients du masque dropout à appliquer. Il serait donc possible d'avoir certaine partie du réseau qui ne s'active que lorsque  certaine caractéristique sont présente dans l'entrée. Je tiens à donner le crédit de cette idée à Emmanuel qui me l'a introduite. Cette option m'apparaît toutefois plus complexe; je doute fortement que j'arrive à coder un tel système dans le temps qui m'est alloué.
             </p>            
             
             <p>
