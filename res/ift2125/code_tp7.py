@@ -141,7 +141,7 @@ def test_fusion_special():
 #Numéro 3    
 
 def select(T,k):
-    """ fonction selection and partition. Ne fait pas les modification de façon in-place"""
+    """ fonction selection and partition. Pas la même que vue en classe."""
     if len(T) == 1 :
         return T[0]
     lo, piv, hi = partition(T)
@@ -192,36 +192,4 @@ def test_selection1():
                 elif a > i :
                     assert y_hat[a] >= y[i-1]
                 
-                    
-
-
-#Numéro 4
-
-from math import ceil
-import random
-
-def selection_m(T,m):
-    """ Retourne tous les éléments dans l'intervalle [ceil(n/2),ceil(n/2)+m]  """
-    n = len(T)
-    i = ceil(n/2.0)
-    T = selection(T,i)
-    T = selection(T[i:n],m-1)
-    T[i:i+m].sort()  
-    return T[i:i+m]
-    
-def test_selection2():
-    ex = [[0,3,5,6,3,2,4]]    
-    for x in ex :
-        i = ceil(len(x)/2.0)    
-        sorted_x = x.copy()
-        sorted_x.sort()
-    
-        for t in range(3):
-            m = random.randint(i,len(x))
-            print("     Entrée : "+str(x)+", m :"+str(m))
-            y_hat = selection_under_m(x,m)
-            y = sorted_x[i:m]
-            print("     Réponse : "+str(y))
-            print(y==y_hat, y_hat)        
-
-    
+               

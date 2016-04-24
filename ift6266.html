@@ -35,7 +35,7 @@
             
             <div class="well sidebar-nav">
             <h2>À propos</h2>
-            <p> Ce blog a pour but de tenir compte de mes expérimentations faites dans le cadre du cours gradué IFT6266 - Algorithmes d'apprentissage de représentations suivi dans le cadre de mon baccalauréat en informatique et recherche opérationnelle.</p>
+            <p> Ce blog a pour but de tenir compte de mes expérimentations faites dans le cadre du cours gradué IFT6266 - Algorithmes d'apprentissage de représentations suivi dans le cadre du cheminenent honor de mon baccalauréat en informatique et recherche opérationnelle.</p>
 
 </div>
    
@@ -77,16 +77,6 @@
         <div class="col-md-9" >
             <h3>Compte-rendus hebdomadaires</h3>
 
-            <a names=fin>
-            <h4> Entrée Finale </h4>
-            
-            <p> Le modèle soumit sur le leaderboard réussi à atteindre une performance de 87.80 % sur l'ensemble de validation. C </p>
-            
-            <p> Rétrospectivement, j'ai sous-estimé l'inclinaison de la courbe d'apprentissage des frameworks. Une certaine affinité doit se développer pour être en mesure de décrypter les erreurs de theano.
-
-
-            </p>
-
             <a names=semaine15></a>
             <h4> Semaine 15 -- [14 avril - 21 avril] </h4>
             <p>
@@ -94,25 +84,31 @@
             <li> Adam ou Momentum </li>
             <li> Maxpooling ou Average pooling </li>
             <li> Avec régularisation l1 et l2 (avec pondérations (0.005,0.005),(0.0025,0.0025), (0.001,0.0025)) ou sans</li>                        
-           <p>De tout ces modèles, ceuil qui a eu la meilleur performance est le "CNN_3layers" avec maxpool adam et régularisation l1 et l2 à 0.0025 et 0.0025. Les graphiques suivants montrent des informations relatives à l'entrainement.</p>
+           <p>De tous ces modèles, celui qui a eu la meilleur performance est le "CNN_3layers" avec maxpool adam et régularisation l1 et l2 à 0.0025 et 0.0025. Les graphiques suivants montrent des informations relatives à l'entrainement.</p>
             
             <img src="res/ift6266/3layers_adam_maxpool_withreg.png">
             <img src="res/ift6266/3layers_adam_maxpool_withreg2.png">
             <img src="res/ift6266/3layers_adam_maxpool_withreg3.png">
 
-           <p>On remarque que le early-stopping ne semble pas avoir empêcher le réseau de faire de l'over-fitting. Bien que l'erreur de validation ne semble pas augmenter drastiquement et atteint même 9.6% à la 26500e batch, on remarque que la variation de l'erreur de validation augmente à partir de la 22000e batch. J'en conclu que 5 époques sans amélioration de l'erreur de validation est un critère trop lousse pour arrêter le modèle au bon moment. J'ai relancé le modèle avec 3 époques pour le early-stopping et un maximum de 11000 batchs (car c'est à ce moment que l'écart entre l'erreur d'entrainement et de validation dépasse le 2%). Entre-temps, j'ai aussi changé les reLu pour des leaky reLu avec pente de 0.01.</p> 
+           <p>On remarque que le early-stopping ne semble pas avoir empêcher le réseau de faire de l'over-fitting. Bien que l'erreur de validation ne semble pas augmenter drastiquement et atteint même 9.6% à la 26500e batch, on remarque que la variation de l'erreur de validation augmente à partir de la 22000e batch. J'en conclu que 5 époques sans amélioration de l'erreur de validation est un critère trop lousse pour arrêter le modèle au bon moment. J'ai relancé le modèle avec 3 époques pour le early-stopping et un maximum de 11000 batchs (car c'est à ce moment que l'écart entre l'erreur d'entrainement et de validation dépasse le 2% avec le modèle ci-dessus). Entre-temps, j'ai aussi changé les ReLU pour des Leaky ReLU avec pente de 0.01.</p> 
             
-<p>Ce modèle a atteint 88.78% de précision sur l'ensemble de validation (90.92% sur l'ensemble d'entrainement) et arrête au courant de la 31 époque après avoir complété un total de 11000 batchs de 64 examples. Ce modèle est celui qui a été soumis sur le leaderboard.
-            </p>
+<p>Ce modèle a atteint 88.78% de précision sur l'ensemble de validation (90.92% sur l'ensemble d'entrainement) et arrête au courant de la 31 époque après avoir complété un total de 11000 batchs de 64 examples. Ce modèle est celui qui a été soumis sur le leaderboard. </p>
             
+            <p>Les test avec le modèle "CNN_3layers" et momentum ne performent pas aussi bien que avec adam mais s'en approche. Le meilleur modèle avec momentum(et régularisation) accomplit 84.37% sur l'ensemble de validation. Par ailleurs, les modèles avec le average pooling semblent performer systématiquement moins bien que leur contre-partie avec le max pooling. Il est possible que cette situation soit dû à la taille des filtres 5x5 et qu'elle n'a pas de répercutions aussi majeures lorsqu'on utilise des tailles plus petites de filtres.  
+
             <p>Les tests basés sur le modèle "CNN_5layers" se sont avérés inconclusif. Le modèle semble incapable de converger vers quelque chose de potable. On dirait que les modèles sont coincés dans un minimum local. Les modèles avec régularisation ont même tendance à rester coincé  éventuellement dans leur entrainement (et généralement tôt). Cette situation se traduit généralement par une incapacité à apprendre. Par exemple, voici graphes des taux d'erreurs et des pénalités du modèle "CNN_5layers" avec adam, maxpool et régularisation tel que sur le modèle précédent.</p>
 
             <img src="res/ift6266/5layers_adam_maxpool_reg.png"> </img>            
             <img src="res/ift6266/5layers_adam_maxpool_reg2.png"> </img>
             
-            <p>On remarque que le réseau ne semble rien apprendre . Cette situation me porte à croire qu'un pré-entrainement pourrait être un facteur clé dans l'entrainement de modèles larges. Alternativement, il pourrait être intéressant de choisir aléatoirement de multiples configurations de départ pour tenter de trouver un état initial favorable à une convergence potable.</p>
+            <p>On remarque que le réseau ne semble rien apprendre. Cette situation me porte à croire qu'un pré-entrainement pourrait être un facteur clé dans l'entrainement de modèles larges. Alternativement, il pourrait être intéressant de choisir aléatoirement de multiples configurations de départ, de faire quelques itérations avec chacune d'etre elle et puis choisir celle qui semble la plus favorable à une convergence potable.</p>
             
-            <p>Il est aussi à noter que j'ai finalement par abandonné l'idée de remettre quelque chose pour le projet de synthèse vocale.</p>
+            <p>Il est aussi à noter que j'ai fini par abandonné l'idée de remettre quelque chose pour le projet de synthèse vocale.</p>
+
+<p>Il est maintenant l'heure d'une petite rétrospective de mon apprentissages des frameworks Lasagne, Blocks, Fuel et Theano. J'ai sous-estimé l'inclinaison de la courbe d'apprentissage de ces frameworks. Il ne fait aucun doute que ceux-ci sont des outils puissants à avoir à disposition. Toutefois, une certaine affinité doit se développer pour être en mesure de les utiliser efficacement ainsi que d'être en mesure de décrypter les erreurs de theano. L'ajout itératif d'éléments dans le réseau de neuronne est une pratique à adopter impérativement pour ne pas laisser passer des erreurs et ainsi prendre un temps disproportionné à débugger. </p>
+
+<p>Finalement, j'aimerais conclure ce blog en remerciant les développeurs des frameworks mentionné ci-dessus ainsi que tous les collègues de classe avec qui j'ai eu la chance de collaborer et/ou d'avoir des échanges constructifs au courant de la session. Merci aussi à Bart qui a supporté mes nombreuses questions sur Blocks tout au long de la session.</p>
+
 
             <a names=semaine13></a>
             <h4> Semaine 14 -- [7 avril - 14 avril] </h4>
@@ -137,7 +133,7 @@
             <p>Le modèle semble stagner à 30% d'erreur sur l'ensemble d'entrainement. En plus, la fonction de perte et le taux d'erreur de la validation ne semblent pas beaucoup corréler avec celles de l'entrainement. Initialement, je me suis dit que c'est peut-être la régularisation, même si elle est d'une magnitude plus petite que le coût, qui entraine une telle instabilité. Pourtant, la version sans régularisation entrainée par la suite avait des courbes aux allures similaires mais le tout approximativement 5% plus élevé sur l'entrainement ainsi que la validation.</p> 
             
             
-           <p>Il est possible que le modèle manque de capacité, que l'entrée de taille 64x64 implique une trop grande perte d'information pour être capable de distinguer correctement. J'ai donc relancer un modèle pareil à l'exception d'un entrée de taille 128x128. Ce modèle s'avéra avoir un comportement encore plus ératique et éprouva plus de difficulté à converger (meilleur score de 35%). Ce comportement est très curieux, surtout que le modèle ne m'apparait pas avoir une quantité déraisonnable de paramètres.</p>  
+           <p>Il est possible que le modèle manque de capacité, que l'entrée de taille 64x64 implique une trop grande perte d'information pour être capable de distinguer correctement. J'ai donc relancer un modèle pareil à l'exception d'un entrée de taille 128x128. Ce modèle s'avéra avoir un comportement encore plus ératique et éprouva plus de difficulté à converger (meilleur score de 35%). Ce comportement est très curieux, surtout que le modèle ne m'apparait pas avoir une quantité déraisonnable de paramètres. Une raison possible derrière ce comportement pourrait être l'introduction de bruit par les étapes de batch normalisations. Ce bruit pourrait être considérable étant donné que les batchs contiennent un nombre relativement petit d'exemple (32 dans ce cas-ci).</p>  
             
             
            <p> Des modèles plus larges furent aussi essayés mais ne furent pas aucunement concluant non plus. Ne souhaitant pas miser tous mes oeufs dans le même panier, j'ai recommencé à entrainer des CNNs inspirés de LeNet sur la tâche. </p>
@@ -166,25 +162,25 @@
             <p>J'ai aussi continuer le projet de synthèse vocale. Les streams sont prêts. Tel qu'expliqué précédemment, un prétraitement est appliqué sur l'entrée dans le but de mettre en exergue certaines caractéristiques du signal. Voici à quoi ressemble la manipulation des streams avec Fuel.
             
 <div style="margin-left: 1em;">
-from fuel.transformers import Flatten
-from fuel.transformers.sequences import Window
-from fuel.transformers import Mapping, Batch, FilterSources, Merge, ForceFloatX
-from fuel.schemes import ConstantScheme
-from fuel.datasets.youtube_audio import YouTubeAudio
-from your_feature_pretreatement import feature_transform
-
-data = YouTubeAudio('XqaJ2Ol5cC4')
-train_stream = data.get_example_stream() # A very long 1-d vector of frequences
-train_stream = ForceFloatX(train_stream)
-window_stream = Window(0,source_window, target_window, overlapping=False, data_stream=train_stream)
-source_stream = FilterSources(window_stream, sources=('features',))
-feats_stream = Mapping(source_stream, feature_transform)
-targets_stream = FilterSources(window_stream, sources=('targets',))
-targets_stream = Flatten(targets_stream)
-stream = Merge((feats_stream,targets_stream), sources = ('features','targets'))
-it_scheme = ConstantScheme(batch_size,num_examples)
-batched_stream = Batch(stream, it_scheme, strictness=1) 
-return batched_stream
+from fuel.transformers import Flatten <br>
+from fuel.transformers.sequences import Window <br>
+from fuel.transformers import Mapping, Batch, FilterSources, Merge, ForceFloatX<br>
+from fuel.schemes import ConstantScheme<br>
+from fuel.datasets.youtube_audio import YouTubeAudio<br>
+from your_feature_pretreatement import feature_transform<br>
+<br>
+data = YouTubeAudio('XqaJ2Ol5cC4')<br>
+train_stream = data.get_example_stream() # A very long 1-d vector of frequences<br>
+train_stream = ForceFloatX(train_stream)<br>
+window_stream = Window(0,source_window, target_window, overlapping=False, data_stream=train_stream)<br>
+source_stream = FilterSources(window_stream, sources=('features',))<br>
+feats_stream = Mapping(source_stream, feature_transform)<br>
+targets_stream = FilterSources(window_stream, sources=('targets',))<br>
+targets_stream = Flatten(targets_stream)<br>
+stream = Merge((feats_stream,targets_stream), sources = ('features','targets'))<br>
+it_scheme = ConstantScheme(batch_size,num_examples)<br>
+batched_stream = Batch(stream, it_scheme, strictness=1) <br>
+return batched_stream <br>
 </div>                        
             </p> 
 
@@ -235,15 +231,15 @@ Once you retrieve the theano variable representing the output with the command *
 <p>You can bypass this problem by using the following : </p>
 
 <div style="margin-left: 1em;">
-prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer))
-test_prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer,deterministic=True)) #For batch norm
+prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer))<br>
+test_prediction = lasagne.utils.as_theano_expression(lasagne.layers.get_output(output_layer,deterministic=True)) #For batchnorm<br>
 
-[...]
+[...] <br>
 
-params = map(lasagne.utils.as_theano_expression,lasagne.layers.get_all_params(output_layer, trainable=True))
+params = map(lasagne.utils.as_theano_expression,lasagne.layers.get_all_params(output_layer, trainable=True))<br>
 algorithm = GradientDescent(
     cost=loss, gradients={var:theano.tensor.grad(loss,var) for var in params},
-    step_rule=step_rule)
+    step_rule=step_rule)<br>
 
 [...]
 </div>
